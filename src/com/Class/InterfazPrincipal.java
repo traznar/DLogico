@@ -17,17 +17,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-
-
-/**
- *
- * @author omendez
- */
 public class InterfazPrincipal extends javax.swing.JFrame {
 
-	/**
-	 * Creacion de todas las variables utilizadas en la interfaz
-	 */
 	private JFrame frame;
 	private JTable table;
 	private JTextField name;
@@ -38,10 +29,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 	private JLabel descuentoL;
 	private JLabel ivaL;
 	private JLabel recargoL ;
-
-
 	JComboBox cantidadMaterias;
-	
 	private String value;
 	private int valueInt; 
 	private String value2;
@@ -54,9 +42,6 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 	Object[] row ;
 	DefaultTableModel model;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -70,16 +55,10 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public InterfazPrincipal() {
 		initialize();
 	}
-	/**
-	 * Funciones llamadas por los botones para realizar los calculos segun sea
-	 * virtual,presencial o laboratorio
-	 */
+
 	public void calculoVirtual(ActionEvent e) {
 		Object item = this.cantidadMaterias.getSelectedItem();
 
@@ -89,9 +68,15 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
 	}
 
-	/**
-	 * Inicializa la interfaz grafica y crea todos sus componentes
-	 */
+	int getDigitCount(int num)
+	{
+	    int c = 0;
+	    while(num > 0){
+	        num/=10;
+	        c++;
+	    }
+	    return c;
+	}
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 978, 664);
@@ -126,10 +111,41 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String numero =hammingNumber.getText();
 				hamming1.hamming(numero);
+				int bitsNeeded=0,m=hammingNumber.getText().length(); 
+				Integer.parseInt(numero);
+				while(true)
+				{
+					if(m+bitsNeeded+1<=Math.pow(2,bitsNeeded))
+					{
+						break;
+					}
+					bitsNeeded++;
+				}
+				for(int i=0;i<=bitsNeeded+m;i++)
+				{
+					if(i==0) {
+						row[0]="Si";
+					} /*
+						 * else { double w = Math.pow(2, i)-1; int w2 = (int)w; row[w2]="Si"; }
+						 */
+					for(int z=0;z<=bitsNeeded;z++) {
+						double w = Math.pow(2, z)-1;
+						int w2 = (int)w;
+						if(i==w2) {
+							row[i]="Si";
+							break;
+						}else {
+							row[i]="no";
+						}
+						
+					}
+				}
+				model.addRow(row);
 			}
 
 			
 		});
+		
 		calcularHamming.setBounds(101, 312, 89, 23);
 		panel.add(calcularHamming);
 		/**
@@ -138,14 +154,14 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 		JButton agregar = new JButton("Agregar");
 		agregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Object item = cantidadMaterias.getSelectedItem();
-
+				
+					
 	
-				value =((ComboItem)item).getValue();
+			
 				valueInt= Integer.parseInt(value);
 				if(value2.equals("Virtual")) {
 
-					value =((ComboItem)item).getValue();
+
 					valueInt= Integer.parseInt(value);
 				
 					row[1]=name.getText();
@@ -243,9 +259,9 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		model = new DefaultTableModel();
-		Object[] column = {"     ","P1","P2","D1"
+		Object[] column = {"P1","P2","D1"
 				,"P3","D2","D3","D4","P4","D5","D6","D7"};
-		row = new Object[11];
+		row = new Object[20];
 		model.setColumnIdentifiers(column);
 		table.setModel(model);
 		

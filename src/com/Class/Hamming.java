@@ -4,6 +4,7 @@ import java.util.*;
 
 class Hamming
 {
+	private int[] value;
 	public void hamming(String number) {
 		int r=0,m=number.length(); 
 		while(true)
@@ -73,6 +74,7 @@ class Hamming
 			System.out.print(transMsg[i]);
 		}
 		System.out.println();
+		value=transMsg;
 		
 	}
 
