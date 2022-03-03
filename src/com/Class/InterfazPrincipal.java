@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package com.Class;
 
 import java.awt.Color;
@@ -34,7 +31,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 	private JFrame frame;
 	private JTable table;
 	private JTextField name;
-	private JTextField carne;
+	private JTextField hammingNumber;
 	private JLabel matriculaL;
 	private JLabel precioCursoL;
 	private JLabel subtotalL;
@@ -42,13 +39,9 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 	private JLabel ivaL;
 	private JLabel recargoL ;
 
+
 	JComboBox cantidadMaterias;
-	private int precioVirtualMatri=87000;
-	private int precioVirtualMateri=110000;
-	private int precioPresenMatri=150000;
-	private int precioPresenMateri=125000;
-	private int precioLaborMatri=150000;
-	private int precioLaborMateri=250000;
+	
 	private String value;
 	private int valueInt; 
 	private String value2;
@@ -111,37 +104,34 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Nombre Completo:");
+		JLabel lblNewLabel = new JLabel("Numero Hamming:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 17));
-		lblNewLabel.setBounds(33, 91, 190, 14);
+		lblNewLabel.setBounds(33, 116, 190, 20);
 		panel.add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("Numero de Carnet:");
+		JLabel lblNewLabel_1 = new JLabel("Numero Hexadecimal:");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 17));
-		lblNewLabel_1.setBounds(33, 116, 176, 14);
+		lblNewLabel_1.setBounds(33, 91, 190, 20);
 		panel.add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_2 = new JLabel("Cantidad de Materias");
+		JLabel lblNewLabel_2 = new JLabel("Lo que sea xD:");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 17));
 		lblNewLabel_2.setBounds(33, 141, 190, 14);
 		panel.add(lblNewLabel_2);
 		
+		Hamming hamming1= new Hamming();
 		
-		
-		JButton calcular = new JButton("Calcular");
-		calcular.addActionListener(new ActionListener() {
+		JButton calcularHamming = new JButton("Calcular");
+		calcularHamming.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-
-				if(value2.equals("Virtual")) {
-					calculoVirtual(e);	
-				}
+				String numero =hammingNumber.getText();
+				hamming1.hamming(numero);
 			}
 
 			
 		});
-		calcular.setBounds(101, 312, 89, 23);
-		panel.add(calcular);
+		calcularHamming.setBounds(101, 312, 89, 23);
+		panel.add(calcularHamming);
 		/**
 		 * Boton que agrega los datos a la tabla segun sea virtual,presencial o laboratorio
 		 */
@@ -157,14 +147,12 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
 					value =((ComboItem)item).getValue();
 					valueInt= Integer.parseInt(value);
-					subtotal=  precioVirtualMateri*valueInt +precioVirtualMatri;
-					
+				
 					row[1]=name.getText();
-					row[0]=carne.getText();
+					row[0]=hammingNumber.getText();
 					row[2]=valueInt;
 					row[3]=value2;
-					row[4]=precioVirtualMatri;
-					row[5]=precioVirtualMateri;
+	
 					row[6]=subtotal;
 					row[7]=Double.toString(subtotal*descuento);
 					row[8]=Double.toString(subtotal*0.13);
@@ -201,58 +189,22 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
 				
 				if(value2.equals("Virtual")) {
-					subtotal=precioVirtualMateri*valueInt +precioVirtualMatri;
+
 					descuentotabla=Double.toString(subtotal*descuento);
 					total=Double.toString(subtotal*0.13+subtotal-subtotal*descuento);
 					ivatabla=subtotal*0.13;
 					recargo=0;
-					model.setValueAt(carne.getText(), i, 0);
+					model.setValueAt(hammingNumber.getText(), i, 0);
 					model.setValueAt(name.getText(), i, 1);
 					model.setValueAt(value, i, 2);
 					model.setValueAt(value2, i, 3);
-					model.setValueAt(precioVirtualMatri, i, 4);
-					model.setValueAt(precioVirtualMateri, i, 5);
+
 					model.setValueAt(subtotal, i, 6);
 					model.setValueAt(descuentotabla, i, 7);
 					model.setValueAt(ivatabla, i, 8);
 					model.setValueAt(recargo, i, 9);
 					model.setValueAt(total, i, 10);
-				}else if(value2.equals("Presencial")) {
-					subtotal=precioPresenMateri*valueInt +precioPresenMatri;
-					descuentotabla=Double.toString(subtotal*descuento);
-					total=Double.toString(subtotal*0.13+subtotal);
-					ivatabla=subtotal*0.13;
-					recargo=0;
-					model.setValueAt(carne.getText(), i, 0);
-					model.setValueAt(name.getText(), i, 1);
-					model.setValueAt(value, i, 2);
-					model.setValueAt(value2, i, 3);
-					model.setValueAt(precioPresenMatri, i, 4);
-					model.setValueAt(precioPresenMateri, i, 5);
-					model.setValueAt(subtotal, i, 6);
-					model.setValueAt(0, i, 7);
-					model.setValueAt(ivatabla, i, 8);
-					model.setValueAt(recargo, i, 9);
-					model.setValueAt(total, i, 10);
-				}else if(value2.equals("Laboratorio")) {
-					subtotal=precioLaborMateri*valueInt +precioLaborMatri;
-					descuentotabla=Double.toString(subtotal*descuento);
-					total=Double.toString(subtotal*0.13+subtotal+precioLaborMateri*valueInt*0.40);;
-					ivatabla=subtotal*0.13;
-					recargo=precioLaborMateri*valueInt*0.40;;
-					model.setValueAt(carne.getText(), i, 0);
-					model.setValueAt(name.getText(), i, 1);
-					model.setValueAt(value, i, 2);
-					model.setValueAt(value2, i, 3);
-					model.setValueAt(precioLaborMatri, i, 4);
-					model.setValueAt(precioLaborMateri, i, 5);
-					model.setValueAt(subtotal, i, 6);
-					model.setValueAt(0, i, 7);
-					model.setValueAt(ivatabla, i, 8);
-					model.setValueAt(recargo, i, 9);
-					model.setValueAt(total, i, 10);
 				}
-				
 				
 			}
 		});
@@ -263,7 +215,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 		limpiar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				name.setText("");
-				carne.setText("");
+				hammingNumber.setText("");
 				matriculaL.setText("");
 				subtotalL.setText("");
 				ivaL.setText("");
@@ -291,24 +243,24 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		model = new DefaultTableModel();
-		Object[] column = {"Carnet","Nombre Completo","Cant.Materias","Modalidad"
-				,"Matricula","Precio","Subtotal","Descuento","IVA","Recargo","Total"};
+		Object[] column = {"     ","P1","P2","D1"
+				,"P3","D2","D3","D4","P4","D5","D6","D7"};
 		row = new Object[11];
 		model.setColumnIdentifiers(column);
 		table.setModel(model);
 		
 		name = new JTextField();
-		name.setBounds(224, 91, 214, 20);
+		name.setBounds(267, 91, 214, 20);
 		panel.add(name);
 		name.setColumns(10);
 		
-		carne = new JTextField();
-		carne.setColumns(10);
-		carne.setBounds(224, 116, 214, 20);
-		panel.add(carne);
+		hammingNumber = new JTextField();
+		hammingNumber.setColumns(10);
+		hammingNumber.setBounds(267, 116, 214, 20);
+		panel.add(hammingNumber);
 		
 		cantidadMaterias = new JComboBox();
-		cantidadMaterias.setBounds(224, 140, 46, 22);
+		cantidadMaterias.setBounds(267, 140, 46, 22);
 		panel.add(cantidadMaterias);
 		cantidadMaterias.addItem(new ComboItem("1","1"));
 		cantidadMaterias.addItem(new ComboItem("2","2"));
@@ -341,8 +293,4 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 		panel.add(recargoL);
 	}
 
-	protected void testeolabel(ActionEvent e) {
-		matriculaL.setText("SIRVE");
-		
-	}
 }
