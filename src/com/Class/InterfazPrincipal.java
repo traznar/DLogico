@@ -27,9 +27,6 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 	private JTable table;
 	private JTextField name;
 	private JTextField hammingNumber;
-	private JLabel matriculaL;
-	private JLabel precioCursoL;
-	private JLabel subtotalL;
 	private JLabel descuentoL;
 	private JLabel ivaL;
 	private JLabel recargoL;
@@ -185,7 +182,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 				model.removeRow(i);
 			}
 		});
-		eliminar.setBounds(443, 312, 89, 23);
+		eliminar.setBounds(446, 358, 89, 23);
 		panel.add(eliminar);
 
 		/**
@@ -207,20 +204,14 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
 			}
 		});
-		Modificar.setBounds(443, 358, 89, 23);
+		Modificar.setBounds(446, 312, 89, 23);
 		panel.add(Modificar);
 
 		JButton limpiar = new JButton("Limpiar");
 		limpiar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				name.setText("");
-				hammingNumber.setText("");
-				matriculaL.setText("");
-				subtotalL.setText("");
-				ivaL.setText("");
-				recargoL.setText("");
-				descuentoL.setText("");
-				precioCursoL.setText("");
+	
+			
 			}
 		});
 		limpiar.setBounds(788, 312, 89, 23);
@@ -262,19 +253,6 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 		panel.add(cantidadMaterias);
 		cantidadMaterias.addItem(new ComboItem("Impar", "1"));
 		cantidadMaterias.addItem(new ComboItem("Par", "2"));
-		
-
-		matriculaL = new JLabel();
-		matriculaL.setBounds(764, 91, 67, 20);
-		panel.add(matriculaL);
-
-		precioCursoL = new JLabel("");
-		precioCursoL.setBounds(764, 115, 74, 23);
-		panel.add(precioCursoL);
-
-		subtotalL = new JLabel("");
-		subtotalL.setBounds(764, 144, 74, 23);
-		panel.add(subtotalL);
 
 		descuentoL = new JLabel("");
 		descuentoL.setBounds(764, 169, 74, 23);
@@ -287,6 +265,29 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 		recargoL = new JLabel("");
 		recargoL.setBounds(764, 218, 74, 23);
 		panel.add(recargoL);
+		
+		JLabel lblNewLabel_3 = new JLabel("New label");
+		lblNewLabel_3.setBounds(560, 91, 146, 14);
+		panel.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_4 = new JLabel("New label");
+		lblNewLabel_4.setBounds(560, 116, 146, 14);
+		panel.add(lblNewLabel_4);
+		
+		JLabel lblNewLabel_5 = new JLabel("New label");
+		lblNewLabel_5.setBounds(751, 91, 181, 14);
+		panel.add(lblNewLabel_5);
+		
+		JLabel lblNewLabel_6 = new JLabel("New label");
+		lblNewLabel_6.setBounds(751, 116, 166, 14);
+		panel.add(lblNewLabel_6);
+		
+		JLabel lblNewLabel_7 = new JLabel("New label");
+		lblNewLabel_7.setBounds(560, 144, 146, 14);
+		panel.add(lblNewLabel_7);
+		
+		JLabel lblNewLabel_8 = new JLabel("New label");
+		lblNewLabel_8.setBounds(751, 144, 166, 14);
+		panel.add(lblNewLabel_8);
 	}
-
 }
