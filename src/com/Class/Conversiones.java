@@ -68,7 +68,7 @@ public class Conversiones {
                         decimal += (int) (temp * Math.pow(16, i));
                         i--;
                     }catch(Exception e){
-                        JOptionPane.showMessageDialog(null, "El número ingresado no es hexadecimal"); 
+                        JOptionPane.showMessageDialog(null, "El numero ingresado no es hexadecimal"); 
                     }
                     break;
             }

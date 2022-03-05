@@ -4,7 +4,7 @@ import java.util.*;
 
 class Hamming
 {
-	private int[] value;
+	public int[] value;
 	public void hamming(String number) {
 		int r=0,m=number.length(); 
 		while(true)

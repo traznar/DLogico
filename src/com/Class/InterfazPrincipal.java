@@ -2,6 +2,7 @@
 package com.Class;
 
 import java.awt.Color;
+import com.Class.HammingCodeTools;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -18,6 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import com.Class.tools.*;
 
 public class InterfazPrincipal extends javax.swing.JFrame {
 
@@ -36,11 +38,13 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 	private int valueInt;
 	private String value2;
 	private int subtotal;
+
 	private double descuento = 0.30;
 	private String descuentotabla;
 	private double ivatabla;
 	private double recargo;
 	private String total;
+
 	private int[] array;
 	Object[] row;
 	DefaultTableModel model;
@@ -64,10 +68,6 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 
 	public void calculoVirtual(ActionEvent e) {
 		Object item = this.cantidadMaterias.getSelectedItem();
-
-		value = ((ComboItem) item).getValue();
-		valueInt = Integer.parseInt(value);
-
 	}
 
 	int getDigitCount(int num) {
@@ -80,6 +80,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 	}
 
 	private void initialize() {
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 978, 664);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -101,7 +102,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 		lblNewLabel_1.setBounds(33, 91, 190, 20);
 		panel.add(lblNewLabel_1);
 
-		JLabel lblNewLabel_2 = new JLabel("Lo que sea xD:");
+		JLabel lblNewLabel_2 = new JLabel("Paridad:");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 17));
 		lblNewLabel_2.setBounds(33, 141, 190, 14);
 		panel.add(lblNewLabel_2);
@@ -112,15 +113,18 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 		calcularHamming.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String numero = hammingNumber.getText();
-				hamming1.hamming(numero);
+				
+				Object item = cantidadMaterias.getSelectedItem();
+				value = ((ComboItem) item).getValue();
+				valueInt = Integer.parseInt(value);
+				HammingCodeTools.info2HammingCode(numero, valueInt);
 				int bitsNeeded = 0, m = hammingNumber.getText().length();
-				int largo = 0;
-				int numero_aux = Integer.parseInt(numero);
+				long numero_aux = Long.parseLong(numero);
 				
 				LinkedList<Integer> stack = new LinkedList<Integer>();
 				array = new int[m];
 				while (numero_aux > 0) {
-					stack.push(numero_aux % 10);
+					stack.push((int) (numero_aux % 10));
 					numero_aux = numero_aux / 10;
 				}
 				int x = 0;
@@ -135,7 +139,6 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 					}
 					bitsNeeded++;
 				}
-				int largoCompleto = m+bitsNeeded;
 				for (int i = 0; i <= bitsNeeded + m; i++) {
 					if (i == 0) {
 						row[0] = "Si";
@@ -144,7 +147,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 						double w = Math.pow(2, z) - 1;
 						int w2 = (int) w;
 						if (i == w2) {
-							row[i] = "Si";
+							row[i] = " ";
 							break;
 						}
 					}
@@ -156,39 +159,19 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 							v++;
 						}
 				}
-				
 				model.addRow(row);
+				System.out.println(Info2HammingCode.finalCode);
+				
+				System.out.println(Arrays.toString(hamming1.value));
 			}
-
 		});
 
 		calcularHamming.setBounds(101, 312, 89, 23);
 		panel.add(calcularHamming);
-		/**
-		 * Boton que agrega los datos a la tabla segun sea virtual,presencial o
-		 * laboratorio
-		 */
+
 		JButton agregar = new JButton("Agregar");
 		agregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				valueInt = Integer.parseInt(value);
-				if (value2.equals("Virtual")) {
-
-					valueInt = Integer.parseInt(value);
-
-					row[1] = name.getText();
-					row[0] = hammingNumber.getText();
-					row[2] = valueInt;
-					row[3] = value2;
-
-					row[6] = subtotal;
-					row[7] = Double.toString(subtotal * descuento);
-					row[8] = Double.toString(subtotal * 0.13);
-					row[9] = 0;
-					row[10] = Double.toString(subtotal * 0.13 + subtotal - subtotal * descuento);
-					model.addRow(row);
-				}
 
 			}
 		});
@@ -217,23 +200,10 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 				value = ((ComboItem) item).getValue();
 				valueInt = Integer.parseInt(value);
 
-				if (value2.equals("Virtual")) {
+			
 
-					descuentotabla = Double.toString(subtotal * descuento);
-					total = Double.toString(subtotal * 0.13 + subtotal - subtotal * descuento);
-					ivatabla = subtotal * 0.13;
-					recargo = 0;
 					model.setValueAt(hammingNumber.getText(), i, 0);
-					model.setValueAt(name.getText(), i, 1);
-					model.setValueAt(value, i, 2);
-					model.setValueAt(value2, i, 3);
-
-					model.setValueAt(subtotal, i, 6);
-					model.setValueAt(descuentotabla, i, 7);
-					model.setValueAt(ivatabla, i, 8);
-					model.setValueAt(recargo, i, 9);
-					model.setValueAt(total, i, 10);
-				}
+		
 
 			}
 		});
@@ -272,7 +242,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		model = new DefaultTableModel();
-		Object[] column = { "P1", "P2", "D1", "P3", "D2", "D3", "D4", "P4", "D5", "D6", "D7" };
+		Object[] column = { "P1", "P2", "D1", "P3", "D2", "D3", "D4", "P4", "D5", "D6", "D7","D8","D9","D10","D11","P5","D12"};
 		row = new Object[20];
 		model.setColumnIdentifiers(column);
 		table.setModel(model);
@@ -288,13 +258,11 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 		panel.add(hammingNumber);
 
 		cantidadMaterias = new JComboBox();
-		cantidadMaterias.setBounds(267, 140, 46, 22);
+		cantidadMaterias.setBounds(267, 140, 74, 22);
 		panel.add(cantidadMaterias);
-		cantidadMaterias.addItem(new ComboItem("1", "1"));
-		cantidadMaterias.addItem(new ComboItem("2", "2"));
-		cantidadMaterias.addItem(new ComboItem("3", "3"));
-		cantidadMaterias.addItem(new ComboItem("4", "4"));
-		cantidadMaterias.addItem(new ComboItem("5", "5"));
+		cantidadMaterias.addItem(new ComboItem("Impar", "1"));
+		cantidadMaterias.addItem(new ComboItem("Par", "2"));
+		
 
 		matriculaL = new JLabel();
 		matriculaL.setBounds(764, 91, 67, 20);
