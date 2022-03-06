@@ -89,20 +89,145 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 	}
 
 	private void sumarValores() {
-		int sumatoria=0;
-		for (int i = 0; i < 16; i++) {
+		int sumatoria1 = 0;
+		int sumatoria2 = 0;
+		int sumatoria3 = 0;
+		int sumatoria4 = 0;
+		int sumatoria5 = 0;
+		for (int i = 0; i < 17; i++) {
 			if(model1.getValueAt(1, i)!= null) {
-				sumatoria+= Character.getNumericValue((char) model1.getValueAt(1, i));
+				sumatoria1 += Character.getNumericValue((char) model1.getValueAt(1, i));
+				System.out.println(sumatoria1);
 			}
 			
 		}
-		System.out.println(sumatoria);
+		for (int i = 0; i < 17; i++) {
+			if(model1.getValueAt(2, i)!= null) {
+				sumatoria2 += Character.getNumericValue((char) model1.getValueAt(2, i));
+			}
+			
+		}
+		for (int i = 0; i < 17; i++) {
+			if(model1.getValueAt(3, i)!= null) {
+				sumatoria3 += Character.getNumericValue((char) model1.getValueAt(3, i));
+			}
+			
+		}
+		for (int i = 0; i < 17; i++) {
+			if(model1.getValueAt(4, i)!= null) {
+				sumatoria4 += Character.getNumericValue((char) model1.getValueAt(4, i));
+			}
+			
+		}
+		for (int i = 0; i < 17; i++) {
+			if(model1.getValueAt(5, i)!= null) {
+				sumatoria5 += Character.getNumericValue((char) model1.getValueAt(5, i));
+			}
+			
+		}
+		
+		Object paridad = cantidadMaterias.getSelectedItem();
+        String valueParidad = ((ComboItem) paridad).getValue();
+        int valueIntParidad = Integer.parseInt(valueParidad);
+        
+        if (valueIntParidad == 2) {
+        	if (sumatoria1 % 2 == 0) {
+        		model1.setValueAt("Correcto", 1, 17);
+        		model1.setValueAt("0", 1, 18);
+        	}else {
+        		model1.setValueAt("Error", 1, 17);
+        		model1.setValueAt("1", 1, 18);
+        	}
+        	
+        	if (sumatoria2 % 2 == 0) {
+        		model1.setValueAt("Correcto", 2, 17);
+        		model1.setValueAt("0", 2, 18);
+        	}else {
+        		model1.setValueAt("Error", 2, 17);
+        		model1.setValueAt("1", 2, 18);
+        	}
+        	
+        	if (sumatoria3 % 2 == 0) {
+        		model1.setValueAt("Correcto", 3, 17);
+        		model1.setValueAt("0", 3, 18);
+        	}else {
+        		model1.setValueAt("Error", 3, 17);
+        		model1.setValueAt("1", 3, 18);
+        	}
+        	
+        	if (sumatoria4 % 2 == 0) {
+        		model1.setValueAt("Correcto", 4, 17);
+        		model1.setValueAt("0", 4, 18);
+        	}else {
+        		model1.setValueAt("Error", 4, 17);
+        		model1.setValueAt("1", 4, 18);
+        	}
+        	
+        	if (sumatoria5 % 2 == 0) {
+        		model1.setValueAt("Correcto", 5, 17);
+        		model1.setValueAt("0", 5, 18);
+        	}else {
+        		model1.setValueAt("Error", 5, 17);
+        		model1.setValueAt("1", 5, 18);
+        	}
+        } else if (valueIntParidad == 1){
+        	if (sumatoria1 % 2 != 0) {
+        		model1.setValueAt("Correcto", 1, 17);
+        		model1.setValueAt("1", 1, 18);
+        	}else {
+        		model1.setValueAt("Error", 1, 17);
+        		model1.setValueAt("0", 1, 18);
+        	}
+        	
+        	if (sumatoria2 % 2 != 0) {
+        		model1.setValueAt("Correcto", 2, 17);
+        		model1.setValueAt("1", 2, 18);
+        	}else {
+        		model1.setValueAt("Error", 2, 17);
+        		model1.setValueAt("0", 2, 18);
+        	}
+        	
+        	if (sumatoria3 % 2 != 0) {
+        		model1.setValueAt("Correcto", 3, 17);
+        		model1.setValueAt("1", 3, 18);
+        	}else {
+        		model1.setValueAt("Error", 3, 17);
+        		model1.setValueAt("0", 3, 18);
+        	}
+        	
+        	if (sumatoria4 % 2 != 0) {
+        		model1.setValueAt("Correcto", 4, 17);
+        		model1.setValueAt("1", 4, 18);
+        	}else {
+        		model1.setValueAt("Error", 4, 17);
+        		model1.setValueAt("0", 4, 18);
+        	}
+        	
+        	if (sumatoria5 % 2 != 0) {
+        		model1.setValueAt("Correcto", 5, 17);
+        		model1.setValueAt("1", 5, 18);
+        	}else {
+        		model1.setValueAt("Error", 5, 17);
+        		model1.setValueAt("0", 5, 18);
+        	}
+        	
+        }
+		
 
 	}
 	
+	private void paridadBits() {
+		Object paridad = cantidadMaterias.getSelectedItem();
+        String valueParidad = ((ComboItem) paridad).getValue();
+        int valueIntParidad = Integer.parseInt(valueParidad);
+        if(valueIntParidad == 1) {
+        	model1.setValueAt('0', 0, 17);
+        }else {
+        	model1.setValueAt('1', 0, 17);
+        }  
+	}
 
 	private void createTableAlter() {
-
 		model1.setValueAt(Info2HammingCode.finalCode.charAt(0), 0, 0);
 		model1.setValueAt(Info2HammingCode.finalCode.charAt(2), 0, 2);
 		model1.setValueAt(Info2HammingCode.finalCode.charAt(4), 0, 4);
@@ -178,10 +303,12 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 		model1.setValueAt(Info2HammingCode.finalCode.charAt(11), 6, 11);
 		model1.setValueAt(Info2HammingCode.finalCode.charAt(13), 6, 13);
 		model1.setValueAt(Info2HammingCode.finalCode.charAt(15), 6, 15);
-
+		paridadBits();
+		
 	}
 
 	private void createTable() {
+		
 		model.setValueAt(Info2HammingCode.finalCode.charAt(0), 1, 0);
 		model.setValueAt(Info2HammingCode.finalCode.charAt(2), 1, 2);
 		model.setValueAt(Info2HammingCode.finalCode.charAt(4), 1, 4);
@@ -317,7 +444,8 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 		model1.setValueAt(Info2HammingCode.finalCode.charAt(11), 6, 11);
 		model1.setValueAt(Info2HammingCode.finalCode.charAt(13), 6, 13);
 		model1.setValueAt(Info2HammingCode.finalCode.charAt(15), 6, 15);
-
+		paridadBits();
+		sumarValores();
 	}
 
 	public static char getCharFromString(String str, int index) {
@@ -424,24 +552,15 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 		});
 		panel.add(calcularHamming);
 
-		JButton agregar = new JButton("Agregar");
-		agregar.setBounds(101, 358, 89, 23);
-		agregar.addActionListener(new ActionListener() {
+		JButton salir = new JButton("Salir");
+		salir.setBounds(101, 358, 89, 23);
+		salir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				System.exit(0);
 			}
 		});
-		panel.add(agregar);
-
-		JButton eliminar = new JButton("Eliminar");
-		eliminar.setBounds(446, 358, 89, 23);
-		eliminar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int i = table.getSelectedRow();
-				model.removeRow(i);
-			}
-		});
-		panel.add(eliminar);
+		panel.add(salir);
+;
 		JButton Modificar = new JButton("Modificar");
 		Modificar.setBounds(446, 312, 89, 23);
 		Modificar.addActionListener(new ActionListener() {
