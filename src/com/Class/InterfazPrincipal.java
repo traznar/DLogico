@@ -33,16 +33,9 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 	JComboBox cantidadMaterias;
 	private String value;
 	private int valueInt;
-	private String value2;
-	private int subtotal;
+	private char[] array;
+	int aumentar = 0;
 
-	private double descuento = 0.30;
-	private String descuentotabla;
-	private double ivatabla;
-	private double recargo;
-	private String total;
-
-	private int[] array;
 	Object[] row;
 	DefaultTableModel model;
 
@@ -76,8 +69,45 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 		return c;
 	}
 
+	private void createTable() {
+
+		int size = Info2HammingCode.finalCode.length();
+		int bitsNeeded = 0, m = hammingNumber.getText().length();
+
+		while (true) {
+			if (m + bitsNeeded + 1 <= Math.pow(2, bitsNeeded)) {
+				break;
+			}
+			bitsNeeded++;
+		}
+		for (int i = 0; i < bitsNeeded; i++) {
+			for (int z = 0; z <= bitsNeeded + m; z++) {
+				double w = Math.pow(2, z) - 1;
+				int w2 = (int) w;
+				if (i == w2) {
+					row[i] = "ALV";
+					break;
+				}
+			}
+			model.addRow(row);
+		}
+
+//		int v = 0;
+//		for (int w = 0; w < bitsNeeded + m; w++) {
+//			if (row[w] == null) {
+//				row[w] = array[v];
+//				v++;
+//			}
+//		}
+
+	}
+
+	public static char getCharFromString(String str, int index) {
+		return str.charAt(index);
+	}
+
 	private void initialize() {
-		
+
 		frame = new JFrame();
 		frame.setBounds(100, 100, 978, 664);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -109,25 +139,21 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 		JButton calcularHamming = new JButton("Calcular");
 		calcularHamming.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
 				String numero = hammingNumber.getText();
-				
 				Object item = cantidadMaterias.getSelectedItem();
+
 				value = ((ComboItem) item).getValue();
 				valueInt = Integer.parseInt(value);
 				HammingCodeTools.info2HammingCode(numero, valueInt);
-				int bitsNeeded = 0, m = hammingNumber.getText().length();
-				long numero_aux = Long.parseLong(numero);
-				
-				LinkedList<Integer> stack = new LinkedList<Integer>();
-				array = new int[m];
-				while (numero_aux > 0) {
-					stack.push((int) (numero_aux % 10));
-					numero_aux = numero_aux / 10;
-				}
-				int x = 0;
-				while ((!stack.isEmpty())) {
-					array[x] = stack.pop();
-					x++;
+				int bitsNeeded = 0, m = numero.length();
+
+				array = new char[m];
+				int q = 0;
+				while (numero.length() > q) {
+					array[q] = numero.charAt(q);
+					System.out.print(array[q]);
+					q++;
 				}
 				System.out.println(Arrays.toString(array));
 				while (true) {
@@ -151,15 +177,17 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 				}
 				int v = 0;
 				for (int w = 0; w < bitsNeeded + m; w++) {
-						if(row[w]==null) {
-							row[w]=array[v];
-							v++;
-						}
+					if (row[w] == null) {
+						row[w] = array[v];
+						System.out.println("ACA" + array[v]);
+						v++;
+					}
 				}
 				model.addRow(row);
+				Object[] row2 = new Object[20];
+				row = row2;
 				System.out.println(Info2HammingCode.finalCode);
-				
-				System.out.println(Arrays.toString(hamming1.value));
+				createTable();
 			}
 		});
 
@@ -197,10 +225,7 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 				value = ((ComboItem) item).getValue();
 				valueInt = Integer.parseInt(value);
 
-			
-
-					model.setValueAt(hammingNumber.getText(), i, 0);
-		
+				model.setValueAt(hammingNumber.getText(), i, 0);
 
 			}
 		});
@@ -210,8 +235,8 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 		JButton limpiar = new JButton("Limpiar");
 		limpiar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-	
-			
+				model.setRowCount(0);
+
 			}
 		});
 		limpiar.setBounds(788, 312, 89, 23);
@@ -233,7 +258,8 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		model = new DefaultTableModel();
-		Object[] column = { "P1", "P2", "D1", "P3", "D2", "D3", "D4", "P4", "D5", "D6", "D7","D8","D9","D10","D11","P5","D12"};
+		Object[] column = { "P1", "P2", "D1", "P3", "D2", "D3", "D4", "P4", "D5", "D6", "D7", "D8", "D9", "D10", "D11",
+				"P5", "D12" };
 		row = new Object[20];
 		model.setColumnIdentifiers(column);
 		table.setModel(model);
@@ -265,27 +291,27 @@ public class InterfazPrincipal extends javax.swing.JFrame {
 		recargoL = new JLabel("");
 		recargoL.setBounds(764, 218, 74, 23);
 		panel.add(recargoL);
-		
+
 		JLabel lblNewLabel_3 = new JLabel("New label");
 		lblNewLabel_3.setBounds(560, 91, 146, 14);
 		panel.add(lblNewLabel_3);
-		
+
 		JLabel lblNewLabel_4 = new JLabel("New label");
 		lblNewLabel_4.setBounds(560, 116, 146, 14);
 		panel.add(lblNewLabel_4);
-		
+
 		JLabel lblNewLabel_5 = new JLabel("New label");
 		lblNewLabel_5.setBounds(751, 91, 181, 14);
 		panel.add(lblNewLabel_5);
-		
+
 		JLabel lblNewLabel_6 = new JLabel("New label");
 		lblNewLabel_6.setBounds(751, 116, 166, 14);
 		panel.add(lblNewLabel_6);
-		
+
 		JLabel lblNewLabel_7 = new JLabel("New label");
 		lblNewLabel_7.setBounds(560, 144, 146, 14);
 		panel.add(lblNewLabel_7);
-		
+
 		JLabel lblNewLabel_8 = new JLabel("New label");
 		lblNewLabel_8.setBounds(751, 144, 166, 14);
 		panel.add(lblNewLabel_8);
