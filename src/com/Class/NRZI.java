@@ -12,11 +12,15 @@ class NRZI extends JFrame{
         JPanel panel=new JPanel();
         getContentPane().add(panel);
         setSize(1100,500);
-        JLabel label1 = new JLabel("Codificación NRZI");
+        JLabel label1 = new JLabel("Codificacion NRZI");
         label1.setBounds(200, 50, 100, 100);
         label1.setForeground(Color.BLACK);
         panel.add(label1);
         this.numero = numero;
+        JLabel label2 = new JLabel(numero);
+        label2.setBounds(200, 50, 100, 100);
+        label2.setForeground(Color.BLACK);
+        panel.add(label2);
     }
 
     public void paint(Graphics g) {
